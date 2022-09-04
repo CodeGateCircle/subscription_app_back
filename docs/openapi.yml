@@ -1,0 +1,360 @@
+openapi: "3.0.0"
+
+info:
+  version: 1.0.0
+  title: subscription_app
+  description: "subscription_appのOpenAPI"
+
+servers:
+  - url: ---
+    description: プロダクション API
+  - url: http://{host}:{port}/api/v0
+    description: 開発用
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '3000'
+
+paths:
+  /subscriptions:
+    get:
+      operationId: aaa
+      summary: サブスクの一覧取得
+      description: サブスクの一覧を取得します
+      responses:
+        200:
+          description: 成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/subscriptions_data"
+
+    post:
+      operationId: bbb
+      summary: サブスクの作成
+      description: サブスクを作成します
+      responses:
+        200:
+          description: 成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/subscription_data"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                subscriptions:
+                  type: object
+                  required:
+                    - name
+                    - price
+                    - payment_cycle
+                    - first_payment_date
+                    - payment_method
+                  properties:
+                    name:
+                      $ref: "#/components/schemas/name"
+                    price:
+                      $ref: "#/components/schemas/price"
+                    payment_cycle:
+                      $ref: "#/components/schemas/payment_cycle"
+                    first_payment_date:
+                      $ref: "#/components/schemas/first_payment_date"
+                    payment_method:
+                      $ref: "#/components/schemas/payment_method"
+                    remarks:
+                      $ref: "#/components/schemas/remarks"
+                    image_url:
+                      $ref: "#/components/schemas/image_url"
+
+  /subscriptions/{subscription_id}:
+    delete:
+      operationId: ccc
+      summary: サブスクの削除
+      responses:
+        200:
+          description: 成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      subscriptions:
+                        type: object
+                        required:
+                          - name
+                          - price
+                          - payment_cycle
+                          - first_payment_date
+                          - payment_method
+                        properties:
+                          name:
+                            $ref: "#/components/schemas/name"
+                          price:
+                            $ref: "#/components/schemas/price"
+                          payment_cycle:
+                            $ref: "#/components/schemas/payment_cycle"
+                          first_payment_date:
+                            $ref: "#/components/schemas/first_payment_date"
+                          payment_method:
+                            $ref: "#/components/schemas/payment_method"
+                          remarks:
+                            $ref: "#/components/schemas/remarks"
+                          image_url:
+                            $ref: "#/components/schemas/image_url"
+
+    put:
+      operationId: ddd
+      summary: サブスクの更新
+      responses:
+        200:
+          description: 成功時のレスポンス
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      subscriptions:
+                        type: object
+                        required:
+                          - name
+                          - price
+                          - payment_cycle
+                          - first_payment_date
+                          - payment_method
+                        properties:
+                          name:
+                            $ref: "#/components/schemas/name"
+                          price:
+                            $ref: "#/components/schemas/price"
+                          payment_cycle:
+                            $ref: "#/components/schemas/payment_cycle"
+                          first_payment_date:
+                            $ref: "#/components/schemas/first_payment_date"
+                          payment_method:
+                            $ref: "#/components/schemas/payment_method"
+                          remarks:
+                            $ref: "#/components/schemas/remarks"
+                          image_url:
+                            $ref: "#/components/schemas/image_url"
+
+  /search?body=''&cursor=0:
+    get:
+      responses:
+        200:
+          description: ok/サブスクの検索
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      subscriptions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              $ref: "#/components/schemas/name"
+                            price:
+                              $ref: "#/components/schemas/price"
+                            payment_cycle:
+                              $ref: "#/components/schemas/payment_cycle"
+                            image_url:
+                              $ref: "#/components/schemas/image_url"
+                      next_cursor:
+                        type: integer
+
+  /account/{user_id}:
+    get:
+      responses:
+        200:
+          description: ok/設計の取得
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_setting"
+
+  /account/new:
+    post:
+      responses:
+        200:
+          description: ok/一意のキー発行（ゲストアカウント作成）
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_setting"
+
+  /account/:
+    put:
+      requestBody:
+        description: 設計の更新
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/account_setting"
+      responses:
+        200:
+          description: ok
+
+
+
+
+
+components:
+  schemas:
+    subscriptions_data:
+      description: サブスク（複数）を取得するため
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - subscriptions
+          properties:
+            subscriptions:
+              description: 配列として取得
+              type: array
+              items:
+                type: object
+                required:
+                  - name
+                  - price
+                  - payment_cycle
+                  - first_payment_date
+                  - payment_method
+                properties:
+                  subscription_id:
+                    $ref: "#/components/schemas/subscription_id"
+                  name:
+                    $ref: "#/components/schemas/name"
+                  price:
+                    $ref: "#/components/schemas/price"
+                  payment_cycle:
+                    $ref: "#/components/schemas/payment_cycle"
+                  first_payment_date:
+                    $ref: "#/components/schemas/first_payment_date"
+                  payment_method:
+                    $ref: "#/components/schemas/payment_method"
+                  remarks:
+                    $ref: "#/components/schemas/remarks"
+                  image_url:
+                    $ref: "#/components/schemas/image_url"
+
+    subscription_data:
+      description: サブスク（1つ）を取得するため
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - subscriptions
+          properties:
+            subscriptions:
+              description: objectとして取得
+              type: object
+              required:
+                - name
+                - price
+                - payment_cycle
+                - first_payment_date
+                - payment_method
+              properties:
+                subscription_id:
+                  $ref: "#/components/schemas/subscription_id"
+                name:
+                  $ref: "#/components/schemas/name"
+                price:
+                  $ref: "#/components/schemas/price"
+                payment_cycle:
+                  $ref: "#/components/schemas/payment_cycle"
+                first_payment_date:
+                  $ref: "#/components/schemas/first_payment_date"
+                payment_method:
+                  $ref: "#/components/schemas/payment_method"
+                remarks:
+                  $ref: "#/components/schemas/remarks"
+                image_url:
+                  $ref: "#/components/schemas/image_url"
+
+    subscription_id:
+      description: subscription固有のid
+      example: 11
+      type: integer
+
+    name:
+      description: サブスクの名前
+      example: Amazon prime
+      type: string
+
+    price:
+      description: サブスクの支払金額
+      example: 1000
+      type : integer
+
+    payment_cycle:
+      description: 支払い周期
+      type: string
+      enum:
+        - month
+        - 2months
+        - 3months
+        - 6months
+        - year
+
+    first_payment_date:
+      description: 初回支払日
+      type: string
+      format: date
+
+    payment_method:
+      description: 支払い方法
+      type: string
+      enum:
+        - 現金
+        - カード
+
+    remarks:
+      description: 備考
+      type: string
+
+    image_url:
+      description: アイコンのURL
+      type: string
+
+    account_setting:
+      description: アカウントの設計
+      type: object
+      properties:
+        user_id:
+          description: ユーザID
+          type: integer
+        currency:
+          description: 支払い通貨
+          type: string
+          enum:
+            - JPY
+            - USD
+        language:
+          description: 言語
+          type: string
+          enum:
+            - Japanese
+            - English
