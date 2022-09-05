@@ -1,0 +1,396 @@
+openapi: "3.0.0"
+
+info:
+  version: 1.0.0
+  title: subscription_app
+  description: "subscription_appのOpenAPI"
+
+tags:
+  - name: subscriptions
+    description: about subscriptions
+  - name: search
+    description: about search
+  - name: account
+    description: about account
+
+servers:
+  - url: ---
+    description: production API
+  - url: http://{host}:{port}/api/v0
+    description: development
+    variables:
+      host:
+        default: localhost
+      port:
+        default: '3000'
+
+paths:
+  /subscriptions:
+    get:
+      tags:
+        - subscriptions
+      operationId: get_subscriptions
+      summary: Get subscriptions
+      description: Get subscription
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/subscriptions_data"
+
+    post:
+      tags:
+        - subscriptions
+      operationId: make_subscription
+      summary: Make subscription
+      description: Make subscription
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/subscription_data"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                subscriptions:
+                  type: object
+                  required:
+                    - name
+                    - price
+                    - payment_cycle
+                    - first_payment_date
+                    - payment_method
+                  properties:
+                    name:
+                      $ref: "#/components/schemas/name"
+                    price:
+                      $ref: "#/components/schemas/price"
+                    payment_cycle:
+                      $ref: "#/components/schemas/payment_cycle"
+                    first_payment_date:
+                      $ref: "#/components/schemas/first_payment_date"
+                    payment_method:
+                      $ref: "#/components/schemas/payment_method"
+                    remarks:
+                      $ref: "#/components/schemas/remarks"
+                    image_url:
+                      $ref: "#/components/schemas/image_url"
+
+  /subscriptions/{subscription_id}:
+    delete:
+      tags:
+        - subscriptions
+      operationId: delete_subscription
+      summary: Delete subscription
+      description: Delete subscription
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      subscriptions:
+                        type: object
+                        required:
+                          - name
+                          - price
+                          - payment_cycle
+                          - first_payment_date
+                          - payment_method
+                        properties:
+                          name:
+                            $ref: "#/components/schemas/name"
+                          price:
+                            $ref: "#/components/schemas/price"
+                          payment_cycle:
+                            $ref: "#/components/schemas/payment_cycle"
+                          first_payment_date:
+                            $ref: "#/components/schemas/first_payment_date"
+                          payment_method:
+                            $ref: "#/components/schemas/payment_method"
+                          remarks:
+                            $ref: "#/components/schemas/remarks"
+                          image_url:
+                            $ref: "#/components/schemas/image_url"
+
+    put:
+      tags:
+        - subscriptions
+      operationId: update_subscription
+      summary: Update subscription
+      description: Update subscription
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      subscriptions:
+                        type: object
+                        required:
+                          - name
+                          - price
+                          - payment_cycle
+                          - first_payment_date
+                          - payment_method
+                        properties:
+                          name:
+                            $ref: "#/components/schemas/name"
+                          price:
+                            $ref: "#/components/schemas/price"
+                          payment_cycle:
+                            $ref: "#/components/schemas/payment_cycle"
+                          first_payment_date:
+                            $ref: "#/components/schemas/first_payment_date"
+                          payment_method:
+                            $ref: "#/components/schemas/payment_method"
+                          remarks:
+                            $ref: "#/components/schemas/remarks"
+                          image_url:
+                            $ref: "#/components/schemas/image_url"
+
+  /search?body='':
+    get:
+      tags:
+        - search
+      operationId: search_subscription
+      summary: Search subscription
+      description: Search subscription
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      subscriptions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              $ref: "#/components/schemas/name"
+                            price:
+                              $ref: "#/components/schemas/price"
+                            payment_cycle:
+                              $ref: "#/components/schemas/payment_cycle"
+                            image_url:
+                              $ref: "#/components/schemas/image_url"
+
+  /account/{user_id}:
+    get:
+      tags:
+        - account
+      operationId: get_setting
+      summary: Get account setting
+      description: Get account setting
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_setting"
+
+  /account:
+    post:
+      tags:
+        - account
+      operationId: make_account
+      summary: Make account
+      description: Make account
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_setting"
+
+    put:
+      tags:
+        - account
+      operationId: update_setting
+      summary: Update account setting
+      description: Update account setting
+      requestBody:
+        description: Update account setting
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/account_setting"
+      responses:
+        200:
+          description: Successful operation
+
+
+
+
+
+components:
+  schemas:
+    subscriptions_data:
+      description: Get some subscriptions
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - subscriptions
+          properties:
+            subscriptions:
+              description: Get as array
+              type: array
+              items:
+                type: object
+                required:
+                  - name
+                  - price
+                  - payment_cycle
+                  - first_payment_date
+                  - payment_method
+                properties:
+                  subscription_id:
+                    $ref: "#/components/schemas/subscription_id"
+                  name:
+                    $ref: "#/components/schemas/name"
+                  price:
+                    $ref: "#/components/schemas/price"
+                  payment_cycle:
+                    $ref: "#/components/schemas/payment_cycle"
+                  first_payment_date:
+                    $ref: "#/components/schemas/first_payment_date"
+                  payment_method:
+                    $ref: "#/components/schemas/payment_method"
+                  remarks:
+                    $ref: "#/components/schemas/remarks"
+                  image_url:
+                    $ref: "#/components/schemas/image_url"
+
+    subscription_data:
+      description: Get a subscription
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - subscriptions
+          properties:
+            subscription:
+              description: get as object
+              type: object
+              required:
+                - name
+                - price
+                - payment_cycle
+                - first_payment_date
+                - payment_method
+              properties:
+                subscription_id:
+                  $ref: "#/components/schemas/subscription_id"
+                name:
+                  $ref: "#/components/schemas/name"
+                price:
+                  $ref: "#/components/schemas/price"
+                payment_cycle:
+                  $ref: "#/components/schemas/payment_cycle"
+                first_payment_date:
+                  $ref: "#/components/schemas/first_payment_date"
+                payment_method:
+                  $ref: "#/components/schemas/payment_method"
+                remarks:
+                  $ref: "#/components/schemas/remarks"
+                image_url:
+                  $ref: "#/components/schemas/image_url"
+
+    subscription_id:
+      description: Subscription unique id
+      example: 11
+      type: integer
+      readOnly: true
+
+    name:
+      description: Name of subscription
+      example: Amazon prime
+      type: string
+
+    price:
+      description: Payment of subscription
+      example: 1000
+      type : integer
+
+    payment_cycle:
+      description: Payment cycle
+      type: string
+      enum:
+        - month
+        - 2months
+        - 3months
+        - 6months
+        - year
+
+    first_payment_date:
+      description: First payment date
+      type: string
+      format: date
+
+    payment_method:
+      description: Payment method
+      type: string
+      enum:
+        - 現金
+        - カード
+
+    remarks:
+      description: Remarks
+      type: string
+
+    image_url:
+      description: URL of icon
+      type: string
+
+    account_setting:
+      description: Account setting
+      type: object
+      properties:
+        user_id:
+          description: User id
+          type: integer
+        currency:
+          description: Currency
+          type: string
+          enum:
+            - JPY
+            - USD
+        language:
+          description: language
+          type: string
+          enum:
+            - Japanese
+            - English
