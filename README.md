@@ -6,3 +6,6 @@
 
 ## API仕様書
 <https://codegatecircle.github.io/subscription-app-open-api/>
+
+### mock server
+access <http://localhost:4010/>
