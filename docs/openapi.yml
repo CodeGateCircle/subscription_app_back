@@ -5,11 +5,19 @@ info:
   title: subscription_app
   description: "subscription_appのOpenAPI"
 
+tags:
+  - name: subscriptions
+    description: about subscriptions
+  - name: search
+    description: about search
+  - name: account
+    description: about account
+
 servers:
   - url: ---
-    description: プロダクション API
+    description: production API
   - url: http://{host}:{port}/api/v0
-    description: 開発用
+    description: development
     variables:
       host:
         default: localhost
@@ -19,24 +27,28 @@ servers:
 paths:
   /subscriptions:
     get:
-      operationId: aaa
-      summary: サブスクの一覧取得
-      description: サブスクの一覧を取得します
+      tags:
+        - subscriptions
+      operationId: get_subscriptions
+      summary: Get subscriptions
+      description: Get subscription
       responses:
         200:
-          description: 成功時のレスポンス
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/subscriptions_data"
 
     post:
-      operationId: bbb
-      summary: サブスクの作成
-      description: サブスクを作成します
+      tags:
+        - subscriptions
+      operationId: make_subscription
+      summary: Make subscription
+      description: Make subscription
       responses:
         200:
-          description: 成功時のレスポンス
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -76,11 +88,14 @@ paths:
 
   /subscriptions/{subscription_id}:
     delete:
-      operationId: ccc
-      summary: サブスクの削除
+      tags:
+        - subscriptions
+      operationId: delete_subscription
+      summary: Delete subscription
+      description: Delete subscription
       responses:
         200:
-          description: 成功時のレスポンス
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -113,11 +128,14 @@ paths:
                             $ref: "#/components/schemas/image_url"
 
     put:
-      operationId: ddd
-      summary: サブスクの更新
+      tags:
+        - subscriptions
+      operationId: update_subscription
+      summary: Update subscription
+      description: Update subscription
       responses:
         200:
-          description: 成功時のレスポンス
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -149,11 +167,16 @@ paths:
                           image_url:
                             $ref: "#/components/schemas/image_url"
 
-  /search?body=''&cursor=0:
+  /search?body='':
     get:
+      tags:
+        - search
+      operationId: search_subscription
+      summary: Search subscription
+      description: Search subscription
       responses:
         200:
-          description: ok/サブスクの検索
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -175,40 +198,52 @@ paths:
                               $ref: "#/components/schemas/payment_cycle"
                             image_url:
                               $ref: "#/components/schemas/image_url"
-                      next_cursor:
-                        type: integer
 
   /account/{user_id}:
     get:
+      tags:
+        - account
+      operationId: get_setting
+      summary: Get account setting
+      description: Get account setting
       responses:
         200:
-          description: ok/設計の取得
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/account_setting"
 
-  /account/new:
+  /account:
     post:
+      tags:
+        - account
+      operationId: make_account
+      summary: Make account
+      description: Make account
       responses:
         200:
-          description: ok/一意のキー発行（ゲストアカウント作成）
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/account_setting"
 
-  /account/:
     put:
+      tags:
+        - account
+      operationId: update_setting
+      summary: Update account setting
+      description: Update account setting
       requestBody:
-        description: 設計の更新
+        description: Update account setting
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/account_setting"
       responses:
         200:
-          description: ok
+          description: Successful operation
 
 
 
@@ -217,7 +252,7 @@ paths:
 components:
   schemas:
     subscriptions_data:
-      description: サブスク（複数）を取得するため
+      description: Get some subscriptions
       type: object
       required:
         - data
@@ -228,7 +263,7 @@ components:
             - subscriptions
           properties:
             subscriptions:
-              description: 配列として取得
+              description: Get as array
               type: array
               items:
                 type: object
@@ -257,7 +292,7 @@ components:
                     $ref: "#/components/schemas/image_url"
 
     subscription_data:
-      description: サブスク（1つ）を取得するため
+      description: Get a subscription
       type: object
       required:
         - data
@@ -267,8 +302,8 @@ components:
           required:
             - subscriptions
           properties:
-            subscriptions:
-              description: objectとして取得
+            subscription:
+              description: get as object
               type: object
               required:
                 - name
@@ -295,22 +330,23 @@ components:
                   $ref: "#/components/schemas/image_url"
 
     subscription_id:
-      description: subscription固有のid
+      description: Subscription unique id
       example: 11
       type: integer
+      readOnly: true
 
     name:
-      description: サブスクの名前
+      description: Name of subscription
       example: Amazon prime
       type: string
 
     price:
-      description: サブスクの支払金額
+      description: Payment of subscription
       example: 1000
       type : integer
 
     payment_cycle:
-      description: 支払い周期
+      description: Payment cycle
       type: string
       enum:
         - month
@@ -320,40 +356,40 @@ components:
         - year
 
     first_payment_date:
-      description: 初回支払日
+      description: First payment date
       type: string
       format: date
 
     payment_method:
-      description: 支払い方法
+      description: Payment method
       type: string
       enum:
         - 現金
         - カード
 
     remarks:
-      description: 備考
+      description: Remarks
       type: string
 
     image_url:
-      description: アイコンのURL
+      description: URL of icon
       type: string
 
     account_setting:
-      description: アカウントの設計
+      description: Account setting
       type: object
       properties:
         user_id:
-          description: ユーザID
+          description: User id
           type: integer
         currency:
-          description: 支払い通貨
+          description: Currency
           type: string
           enum:
             - JPY
             - USD
         language:
-          description: 言語
+          description: language
           type: string
           enum:
             - Japanese
