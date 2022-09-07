@@ -1,0 +1,2 @@
+class SubscriptionImage < ApplicationRecord
+end
