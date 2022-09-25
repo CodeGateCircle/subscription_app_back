@@ -60,33 +60,33 @@ paths:
             schema:
               type: object
               properties:
-                user_id:
+                userId:
                   type: integer
-                subscriptions:
+                subscription:
                   type: object
                   required:
                     - name
                     - price
-                    - payment_cycle
-                    - first_payment_date
-                    - payment_method
+                    - paymentCycle
+                    - firstPaymentDate
+                    - paymentMethod
                   properties:
                     name:
                       $ref: "#/components/schemas/name"
                     price:
                       $ref: "#/components/schemas/price"
-                    payment_cycle:
-                      $ref: "#/components/schemas/payment_cycle"
-                    first_payment_date:
-                      $ref: "#/components/schemas/first_payment_date"
-                    payment_method:
-                      $ref: "#/components/schemas/payment_method"
+                    paymentCycle:
+                      $ref: "#/components/schemas/paymentCycle"
+                    firstPaymentDate:
+                      $ref: "#/components/schemas/firstPaymentDate"
+                    paymentMethod:
+                      $ref: "#/components/schemas/paymentMethod"
                     remarks:
                       $ref: "#/components/schemas/remarks"
-                    image_url:
-                      $ref: "#/components/schemas/image_url"
+                    imageUrl:
+                      $ref: "#/components/schemas/imageUrl"
 
-  /subscriptions/{subscription_id}:
+  /subscriptions/{subscriptionId}:
     delete:
       tags:
         - subscriptions
@@ -103,29 +103,29 @@ paths:
                   data:
                     type: object
                     properties:
-                      subscriptions:
+                      subscription:
                         type: object
                         required:
                           - name
                           - price
-                          - payment_cycle
-                          - first_payment_date
-                          - payment_method
+                          - paymentCycle
+                          - firstPaymentDate
+                          - paymentMethod
                         properties:
                           name:
                             $ref: "#/components/schemas/name"
                           price:
                             $ref: "#/components/schemas/price"
-                          payment_cycle:
-                            $ref: "#/components/schemas/payment_cycle"
-                          first_payment_date:
-                            $ref: "#/components/schemas/first_payment_date"
-                          payment_method:
-                            $ref: "#/components/schemas/payment_method"
+                          paymentCycle:
+                            $ref: "#/components/schemas/paymentCycle"
+                          firstPaymentDate:
+                            $ref: "#/components/schemas/firstPaymentDate"
+                          paymentMethod:
+                            $ref: "#/components/schemas/paymentMethod"
                           remarks:
                             $ref: "#/components/schemas/remarks"
-                          image_url:
-                            $ref: "#/components/schemas/image_url"
+                          imageUrl:
+                            $ref: "#/components/schemas/imageUrl"
 
     put:
       tags:
@@ -133,6 +133,37 @@ paths:
       operationId: update_subscription
       summary: Update subscription
       description: Update subscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                subscription:
+                  type: object
+                  required:
+                    - name
+                    - price
+                    - paymentCycle
+                    - firstPaymentDate
+                    - paymentMethod
+                  properties:
+                    name:
+                      $ref: "#/components/schemas/name"
+                    price:
+                      $ref: "#/components/schemas/price"
+                    paymentCycle:
+                      $ref: "#/components/schemas/paymentCycle"
+                    firstPaymentDate:
+                      $ref: "#/components/schemas/firstPaymentDate"
+                    paymentMethod:
+                      $ref: "#/components/schemas/paymentMethod"
+                    remarks:
+                      $ref: "#/components/schemas/remarks"
+                    imageUrl:
+                      $ref: "#/components/schemas/imageUrl"
       responses:
         200:
           description: Successful operation
@@ -143,37 +174,44 @@ paths:
                   data:
                     type: object
                     properties:
-                      subscriptions:
+                      subscription:
                         type: object
                         required:
                           - name
                           - price
-                          - payment_cycle
-                          - first_payment_date
-                          - payment_method
+                          - paymentCycle
+                          - firstPaymentDate
+                          - paymentMethod
                         properties:
                           name:
                             $ref: "#/components/schemas/name"
                           price:
                             $ref: "#/components/schemas/price"
-                          payment_cycle:
-                            $ref: "#/components/schemas/payment_cycle"
-                          first_payment_date:
-                            $ref: "#/components/schemas/first_payment_date"
-                          payment_method:
-                            $ref: "#/components/schemas/payment_method"
+                          paymentCycle:
+                            $ref: "#/components/schemas/paymentCycle"
+                          firstPaymentDate:
+                            $ref: "#/components/schemas/firstPaymentDate"
+                          paymentMethod:
+                            $ref: "#/components/schemas/paymentMethod"
                           remarks:
                             $ref: "#/components/schemas/remarks"
-                          image_url:
-                            $ref: "#/components/schemas/image_url"
+                          imageUrl:
+                            $ref: "#/components/schemas/imageUrl"
 
-  /search?body='':
+  /search:
     get:
       tags:
         - search
       operationId: search_subscription
       summary: Search subscription
       description: Search subscription
+      parameters:
+        - name: body
+          in: query
+          description: 'search parameter'
+          style: form
+          schema:
+            type: string
       responses:
         200:
           description: Successful operation
@@ -185,7 +223,7 @@ paths:
                   data:
                     type: object
                     properties:
-                      subscriptions:
+                      result:
                         type: array
                         items:
                           type: object
@@ -194,12 +232,12 @@ paths:
                               $ref: "#/components/schemas/name"
                             price:
                               $ref: "#/components/schemas/price"
-                            payment_cycle:
-                              $ref: "#/components/schemas/payment_cycle"
-                            image_url:
-                              $ref: "#/components/schemas/image_url"
+                            paymentCycle:
+                              $ref: "#/components/schemas/paymentCycle"
+                            imageUrl:
+                              $ref: "#/components/schemas/imageUrl"
 
-  /account/{user_id}:
+  /account/{userId}:
     get:
       tags:
         - account
@@ -212,7 +250,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_setting"
+                $ref: "#/components/schemas/accountSetting"
 
   /account:
     post:
@@ -227,7 +265,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_setting"
+                $ref: "#/components/schemas/accountSetting"
 
     put:
       tags:
@@ -240,7 +278,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/account_setting"
+              $ref: "#/components/schemas/accountSetting"
       responses:
         200:
           description: Successful operation
@@ -270,26 +308,26 @@ components:
                 required:
                   - name
                   - price
-                  - payment_cycle
-                  - first_payment_date
-                  - payment_method
+                  - paymentCycle
+                  - firstPaymentDate
+                  - paymentMethod
                 properties:
-                  subscription_id:
-                    $ref: "#/components/schemas/subscription_id"
+                  subscriptionId:
+                    $ref: "#/components/schemas/subscriptionId"
                   name:
                     $ref: "#/components/schemas/name"
                   price:
                     $ref: "#/components/schemas/price"
-                  payment_cycle:
-                    $ref: "#/components/schemas/payment_cycle"
-                  first_payment_date:
-                    $ref: "#/components/schemas/first_payment_date"
-                  payment_method:
-                    $ref: "#/components/schemas/payment_method"
+                  paymentCycle:
+                    $ref: "#/components/schemas/paymentCycle"
+                  firstPaymentDate:
+                    $ref: "#/components/schemas/firstPaymentDate"
+                  paymentMethod:
+                    $ref: "#/components/schemas/paymentMethod"
                   remarks:
                     $ref: "#/components/schemas/remarks"
-                  image_url:
-                    $ref: "#/components/schemas/image_url"
+                  imageUrl:
+                    $ref: "#/components/schemas/imageUrl"
 
     subscription_data:
       description: Get a subscription
@@ -308,28 +346,28 @@ components:
               required:
                 - name
                 - price
-                - payment_cycle
-                - first_payment_date
-                - payment_method
+                - paymentCycle
+                - firstPaymentDate
+                - paymentMethod
               properties:
-                subscription_id:
-                  $ref: "#/components/schemas/subscription_id"
+                subscriptionId:
+                  $ref: "#/components/schemas/subscriptionId"
                 name:
                   $ref: "#/components/schemas/name"
                 price:
                   $ref: "#/components/schemas/price"
-                payment_cycle:
-                  $ref: "#/components/schemas/payment_cycle"
-                first_payment_date:
-                  $ref: "#/components/schemas/first_payment_date"
-                payment_method:
-                  $ref: "#/components/schemas/payment_method"
+                paymentCycle:
+                  $ref: "#/components/schemas/paymentCycle"
+                firstPaymentDate:
+                  $ref: "#/components/schemas/firstPaymentDate"
+                paymentMethod:
+                  $ref: "#/components/schemas/paymentMethod"
                 remarks:
                   $ref: "#/components/schemas/remarks"
-                image_url:
-                  $ref: "#/components/schemas/image_url"
+                imageUrl:
+                  $ref: "#/components/schemas/imageUrl"
 
-    subscription_id:
+    subscriptionId:
       description: Subscription unique id
       example: 11
       type: integer
@@ -345,41 +383,41 @@ components:
       example: 1000
       type : integer
 
-    payment_cycle:
+    paymentCycle:
       description: Payment cycle
       type: string
       enum:
-        - month
-        - 2months
-        - 3months
-        - 6months
+        - oneMonth
+        - twoMonths
+        - threeMonths
+        - sixMonths
         - year
 
-    first_payment_date:
+    firstPaymentDate:
       description: First payment date
       type: string
       format: date
 
-    payment_method:
+    paymentMethod:
       description: Payment method
       type: string
       enum:
-        - 現金
-        - カード
+        - cash
+        - card
 
     remarks:
       description: Remarks
       type: string
 
-    image_url:
+    imageUrl:
       description: URL of icon
       type: string
 
-    account_setting:
+    accountSetting:
       description: Account setting
       type: object
       properties:
-        user_id:
+        userId:
           description: User id
           type: integer
         currency:
