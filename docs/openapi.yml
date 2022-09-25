@@ -387,10 +387,10 @@ components:
       description: Payment cycle
       type: string
       enum:
-        - month
-        - 2months
-        - 3months
-        - 6months
+        - one_month
+        - two_months
+        - three_months
+        - six_months
         - year
 
     first_payment_date:
