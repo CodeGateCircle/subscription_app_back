@@ -402,8 +402,8 @@ components:
       description: Payment method
       type: string
       enum:
-        - 現金
-        - カード
+        - cash
+        - card
 
     remarks:
       description: Remarks
