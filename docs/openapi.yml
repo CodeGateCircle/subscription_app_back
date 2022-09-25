@@ -167,13 +167,20 @@ paths:
                           image_url:
                             $ref: "#/components/schemas/image_url"
 
-  /search?body='':
+  /search:
     get:
       tags:
         - search
       operationId: search_subscription
       summary: Search subscription
       description: Search subscription
+      parameters:
+        - name: body
+          in: query
+          description: 'search parameter'
+          style: form
+          schema:
+            type: string
       responses:
         200:
           description: Successful operation
@@ -185,7 +192,7 @@ paths:
                   data:
                     type: object
                     properties:
-                      subscriptions:
+                      result:
                         type: array
                         items:
                           type: object
