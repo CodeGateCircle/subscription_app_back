@@ -1,10 +1,10 @@
 class CreatePaymentMethods < ActiveRecord::Migration[7.0]
   def change
-    create_table :payment_methods do |t|
-      t.string  :payment_method, null: false
+    createTable :paymentMethods do |t|
+      t.string  :paymentMethod, null: false
 
       t.timestamps
     end
-    add_index :payment_methods, :payment_method, unique: true
+    addIndex :paymentMethods, :paymentMethod, unique: true
   end
 end

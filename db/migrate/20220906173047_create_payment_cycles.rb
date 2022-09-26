@@ -1,10 +1,10 @@
 class CreatePaymentCycles < ActiveRecord::Migration[7.0]
   def change
-    create_table :payment_cycles do |t|
-      t.string  :payment_cycle, null: false
+    createTable :paymentCycles do |t|
+      t.string  :paymentCycle, null: false
 
       t.timestamps
     end
-    add_index :payment_cycles, :payment_cycle, unique: true
+    add_index :paymentCycles, :paymentCycle, unique: true
   end
 end
