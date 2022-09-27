@@ -1,8 +1,8 @@
 class CreateSubscriptionImages < ActiveRecord::Migration[7.0]
   def change
-    createTable :subscriptionImages do |t|
-      t.string  :subscriptionName, null: false
-      t.binary  :subscriptionImage, null: false
+    create_table :subscription_images do |t|
+      t.string  :subscription_name, null: false
+      t.binary  :subscription_image, null: false
 
       t.timestamps
     end

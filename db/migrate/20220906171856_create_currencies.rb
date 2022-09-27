@@ -1,10 +1,10 @@
 class CreateCurrencies < ActiveRecord::Migration[7.0]
   def change
-    createTable :currencies do |t|
+    create_table :currencies do |t|
       t.string  :currency, null: false
 
       t.timestamps
     end
-    addIndex :currencies, :currency, unique: true
+    add_index :currencies, :currency, unique: true
   end
 end
