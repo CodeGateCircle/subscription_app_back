@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_173330) do
     t.integer "price", default: 0, null: false
     t.date "first_payment_date"
     t.text "remarks"
+    t.boolean "stop", default: false
     t.bigint "user_id", null: false
     t.bigint "subscription_image_id", null: false
     t.bigint "payment_cycle_id", null: false
