@@ -85,8 +85,8 @@ paths:
                       $ref: "#/components/schemas/remarks"
                     imageUrl:
                       $ref: "#/components/schemas/imageUrl"
-                    stop:
-                      $ref: "#/components/schemas/stop"
+                    pause:
+                      $ref: "#/components/schemas/pause"
 
   /subscriptions/{subscriptionId}:
     delete:
@@ -128,8 +128,8 @@ paths:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
                             $ref: "#/components/schemas/imageUrl"
-                          stop:
-                            $ref: "#/components/schemas/stop"
+                          pause:
+                            $ref: "#/components/schemas/pause"
 
     put:
       tags:
@@ -201,8 +201,8 @@ paths:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
                             $ref: "#/components/schemas/imageUrl"
-                          stop:
-                            $ref: "#/components/schemas/stop"
+                          pause:
+                            $ref: "#/components/schemas/pause"
 
   /search:
     get:
@@ -334,8 +334,8 @@ components:
                     $ref: "#/components/schemas/remarks"
                   imageUrl:
                     $ref: "#/components/schemas/imageUrl"
-                  stop:
-                    $ref: "#/components/schemas/stop"
+                  pause:
+                    $ref: "#/components/schemas/pause"
 
     subscription_data:
       description: Get a subscription
@@ -374,8 +374,8 @@ components:
                   $ref: "#/components/schemas/remarks"
                 imageUrl:
                   $ref: "#/components/schemas/imageUrl"
-                stop:
-                  $ref: "#/components/schemas/stop"
+                pause:
+                  $ref: "#/components/schemas/pause"
 
     subscriptionId:
       description: Subscription unique id
@@ -423,7 +423,7 @@ components:
       description: URL of icon
       type: string
 
-    stop:
+    pause:
       description: Stop payment
       type: boolean
 
