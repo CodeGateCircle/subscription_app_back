@@ -168,6 +168,8 @@ paths:
                       $ref: "#/components/schemas/remarks"
                     imageUrl:
                       $ref: "#/components/schemas/imageUrl"
+                    isPause:
+                      $ref: "#/components/schemas/isPause"
       responses:
         200:
           description: Successful operation
@@ -431,18 +433,21 @@ components:
       description: Account setting
       type: object
       properties:
-        userId:
-          description: User id
-          type: integer
-        currency:
-          description: Currency
-          type: string
-          enum:
-            - JPY
-            - USD
-        language:
-          description: language
-          type: string
-          enum:
-            - Japanese
-            - English
+        data:
+          type: object
+          properties:
+            userId:
+              description: User id
+              type: integer
+            currency:
+              description: Currency
+              type: string
+              enum:
+                - JPY
+                - USD
+            language:
+              description: language
+              type: string
+              enum:
+                - Japanese
+                - English

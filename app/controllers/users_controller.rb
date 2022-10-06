@@ -11,6 +11,12 @@ class UsersController < ApplicationController
         render :json => {data:user}
     end
 
+    def show
+        user = User.find(params[:id])
+
+        render :json => {data:user}
+    end
+
     def create_params
         params.permit(:language, :currency)
     end
