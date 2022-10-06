@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   post '/account', to: 'users#create'
   get '/account/:id', to: 'users#show'
+  put '/account' , to: 'users#update'
 
 end
