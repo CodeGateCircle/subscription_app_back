@@ -6,12 +6,11 @@ class CreateSubscriptions < ActiveRecord::Migration[7.0]
       t.date    :first_payment_date, null: true
       t.text    :remarks, null: true
       t.boolean :is_paused, default: false
+      t.string  :image_url
+      t.integer :payment_cycle, limit:1, null: false
+      t.integer :payment_method, limit:1, null: false
 
       t.references  :user, null: false, foreign_key: true
-      t.references  :subscription_image, null: false, foreign_key: true
-      t.references  :payment_cycle, null: false, foreign_key: true
-      t.references  :payment_method, null: false, foreign_key: true
-
       t.timestamps
     end
   end
