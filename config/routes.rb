@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   # root "homes#index"
 
   post '/account', to: 'users#create'
-  get '/account/:id', to: 'users#setting'
+  get '/account/:id', to: 'users#show'
 
 end
