@@ -6,7 +6,7 @@
 3. `docker-compose up`で実行
 
 ## API仕様書
-<https://codegatecircle.github.io/subscription-app-open-api/>
+<https://codegatecircle.github.io/subscription_app_back/>
 
 ### mock server
 access <http://localhost:4010/>
