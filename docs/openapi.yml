@@ -85,6 +85,8 @@ paths:
                       $ref: "#/components/schemas/remarks"
                     imageUrl:
                       $ref: "#/components/schemas/imageUrl"
+                    isPause:
+                      $ref: "#/components/schemas/isPause"
 
   /subscriptions/{subscriptionId}:
     delete:
@@ -126,6 +128,8 @@ paths:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
                             $ref: "#/components/schemas/imageUrl"
+                          isPause:
+                            $ref: "#/components/schemas/isPause"
 
     put:
       tags:
@@ -197,6 +201,8 @@ paths:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
                             $ref: "#/components/schemas/imageUrl"
+                          isPause:
+                            $ref: "#/components/schemas/isPause"
 
   /search:
     get:
@@ -328,6 +334,8 @@ components:
                     $ref: "#/components/schemas/remarks"
                   imageUrl:
                     $ref: "#/components/schemas/imageUrl"
+                  isPause:
+                    $ref: "#/components/schemas/isPause"
 
     subscription_data:
       description: Get a subscription
@@ -366,6 +374,8 @@ components:
                   $ref: "#/components/schemas/remarks"
                 imageUrl:
                   $ref: "#/components/schemas/imageUrl"
+                isPause:
+                  $ref: "#/components/schemas/isPause"
 
     subscriptionId:
       description: Subscription unique id
@@ -412,6 +422,10 @@ components:
     imageUrl:
       description: URL of icon
       type: string
+
+    isPause:
+      description: Stop payment
+      type: boolean
 
     accountSetting:
       description: Account setting
