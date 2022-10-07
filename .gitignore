@@ -35,4 +35,4 @@
 /config/master.key
 
 # ignore firebase key
-gcs_key.json
+# gcs_key.json

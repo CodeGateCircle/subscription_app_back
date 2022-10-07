@@ -13,3 +13,9 @@ development:
 test:
   <<: *default
   database: subscription_app_back_test
+
+production:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
