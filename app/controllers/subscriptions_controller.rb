@@ -15,7 +15,7 @@ class SubscriptionsController < ApplicationController
             payment_method: params[:subscription][:paymentMethod],
         })
 
-        render :json => {data:subscription}
+        render :json => {data:subscription.format_res}
     end
 
     def show
@@ -23,7 +23,7 @@ class SubscriptionsController < ApplicationController
 
         subscriptions = Subscription.where(user_id: params[:userId])
 
-        render :json => {data:{subscriptions:subscriptions}}
+        render :json => {data:{subscriptions:subscriptions.format_res}}
     end
 
     def delete
@@ -31,7 +31,7 @@ class SubscriptionsController < ApplicationController
 
         subscription = Subscription.find(params[:id]).destroy
 
-        render :json => {data:{subscription:subscription}}
+        render :json => {data:{subscription:subscription.format_res}}
     end
 
     def update
@@ -52,7 +52,7 @@ class SubscriptionsController < ApplicationController
         )
 
 
-        render :json => {data:subscription}
+        render :json => {data:subscription.format_res}
     end
 
     # strong parameter
