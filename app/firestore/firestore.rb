@@ -1,12 +1,11 @@
 class Firestore
   require 'google/cloud/storage'
-  # class_attribute :bucket
 
   storage = Google::Cloud::Storage.new(
-    project_id: "subscription-rails",
-    credentials: "config/key.json"
+    project_id: ENV['GCS_PROJECT_ID'],
+    credentials: "gcs_key.json"
   )
-  @@bucket = storage.bucket "subscription-rails.appspot.com"
+  @@bucket = storage.bucket ENV['GCS_BUCKET']
 
   def self.add_image_from_base64(base64, subscription_id)
     image_match = base64.match(/^data:(.*?);(?:.*?),(.*)$/)
