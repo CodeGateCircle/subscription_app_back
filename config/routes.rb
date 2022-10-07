@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "homes#index"
 
   post '/subscriptions', to: 'subscriptions#create'
-  get '/subscriptions/:user_id', to: 'subscriptions#show'
+  get '/subscriptions', to: 'subscriptions#show'
 
   post '/account', to: 'users#create'
   get '/account/:id', to: 'users#show'
