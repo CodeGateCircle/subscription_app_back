@@ -18,8 +18,20 @@ class SubscriptionsController < ApplicationController
         render :json => {data:subscription}
     end
 
+    def show
+        params = show_params
+
+        subscriptions = Subscription.where(user_id: params[:user_id])
+
+        render :json => {data:{subscriptions:subscriptions}}
+    end
+
+    # strong parameter
     def create_params
         params.permit(:userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :imageUrl, :paymentCycle, :paymentMethod])
     end
 
+    def show_params
+        params.permit(:user_id)
+    end
 end
