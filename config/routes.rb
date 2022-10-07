@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   get '/account/:id', to: 'users#show'
   put '/account' , to: 'users#update'
 
+  post '/test', to: 'test#create'
+
 end
