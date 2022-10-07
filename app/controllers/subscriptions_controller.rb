@@ -51,6 +51,7 @@ class SubscriptionsController < ApplicationController
             payment_method: params[:subscription][:paymentMethod],
         )
 
+
         render :json => {data:subscription}
     end
 
