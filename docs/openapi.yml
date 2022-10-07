@@ -89,49 +89,7 @@ paths:
                       $ref: "#/components/schemas/isPause"
 
   /subscriptions/{subscriptionId}:
-    delete:
-      tags:
-        - subscriptions
-      operationId: delete_subscription
-      summary: Delete subscription
-      description: Delete subscription
-      responses:
-        200:
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      subscription:
-                        type: object
-                        required:
-                          - name
-                          - price
-                          - paymentCycle
-                          - firstPaymentDate
-                          - paymentMethod
-                        properties:
-                          name:
-                            $ref: "#/components/schemas/name"
-                          price:
-                            $ref: "#/components/schemas/price"
-                          paymentCycle:
-                            $ref: "#/components/schemas/paymentCycle"
-                          firstPaymentDate:
-                            $ref: "#/components/schemas/firstPaymentDate"
-                          paymentMethod:
-                            $ref: "#/components/schemas/paymentMethod"
-                          remarks:
-                            $ref: "#/components/schemas/remarks"
-                          imageUrl:
-                            $ref: "#/components/schemas/imageUrl"
-                          isPause:
-                            $ref: "#/components/schemas/isPause"
-
-    put:
+    post:
       tags:
         - subscriptions
       operationId: update_subscription
@@ -170,6 +128,48 @@ paths:
                       $ref: "#/components/schemas/imageUrl"
                     isPause:
                       $ref: "#/components/schemas/isPause"
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      subscription:
+                        type: object
+                        required:
+                          - name
+                          - price
+                          - paymentCycle
+                          - firstPaymentDate
+                          - paymentMethod
+                        properties:
+                          name:
+                            $ref: "#/components/schemas/name"
+                          price:
+                            $ref: "#/components/schemas/price"
+                          paymentCycle:
+                            $ref: "#/components/schemas/paymentCycle"
+                          firstPaymentDate:
+                            $ref: "#/components/schemas/firstPaymentDate"
+                          paymentMethod:
+                            $ref: "#/components/schemas/paymentMethod"
+                          remarks:
+                            $ref: "#/components/schemas/remarks"
+                          imageUrl:
+                            $ref: "#/components/schemas/imageUrl"
+                          isPause:
+                            $ref: "#/components/schemas/isPause"
+
+    delete:
+      tags:
+        - subscriptions
+      operationId: delete_subscription
+      summary: Delete subscription
+      description: Delete subscription
       responses:
         200:
           description: Successful operation
