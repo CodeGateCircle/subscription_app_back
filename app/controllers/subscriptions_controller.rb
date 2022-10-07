@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
 
     def create
         params = create_params
-        subscription = Subscription.create({
+        subscription = Subscription.create!({
             user_id: params[:userId],
             name: params[:subscription][:name],
             price: params[:subscription][:price],
@@ -56,7 +56,7 @@ class SubscriptionsController < ApplicationController
             url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
             update_params[:image_url] = url
         end
-        subscription.update(update_params)
+        subscription.update!(update_params)
         render :json => { data: subscription.format_res }
     end
 

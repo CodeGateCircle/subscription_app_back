@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     def update
         params = update_params
 
-        user = User.find(params[:userId]).update(currency: params[:currency], language: params[:language])
+        user = User.find(params[:userId]).update!(currency: params[:currency], language: params[:language])
 
         render :json => { data: user.format_res }
     end
