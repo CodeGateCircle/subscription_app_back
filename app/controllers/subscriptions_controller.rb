@@ -26,6 +26,14 @@ class SubscriptionsController < ApplicationController
         render :json => {data:{subscriptions:subscriptions}}
     end
 
+    def delete
+        params = delete_params
+
+        subscription = Subscription.find(params[:id]).destroy
+
+        render :json => {data:{subscription:subscription}}
+    end
+
     # strong parameter
     def create_params
         params.permit(:userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :imageUrl, :paymentCycle, :paymentMethod])
@@ -33,5 +41,9 @@ class SubscriptionsController < ApplicationController
 
     def show_params
         params.permit(:user_id)
+    end
+
+    def delete_params
+        params.permit(:id)
     end
 end
