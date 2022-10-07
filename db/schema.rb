@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_173330) do
     t.integer "price", default: 0, null: false
     t.date "first_payment_date"
     t.text "remarks"
-    t.boolean "is_paused", default: false
+    t.boolean "is_paused", default: false, null: false
     t.string "image_url"
     t.integer "payment_cycle", limit: 2, null: false
     t.integer "payment_method", limit: 2, null: false
