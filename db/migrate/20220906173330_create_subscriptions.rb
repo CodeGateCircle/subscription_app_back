@@ -10,8 +10,9 @@ class CreateSubscriptions < ActiveRecord::Migration[7.0]
       t.integer :payment_cycle, limit:1, null: false
       t.integer :payment_method, limit:1, null: false
 
-      t.references  :user, null: false, foreign_key: true
+      t.references  :user, type: :string, null: false
       t.timestamps
     end
+    add_foreign_key :subscriptions, :users, column: :user_id, primary_key: :user_id
   end
 end
