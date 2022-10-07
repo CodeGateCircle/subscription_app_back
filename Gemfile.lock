@@ -262,6 +262,9 @@ DEPENDENCIES
   factory_bot_rails
   faker
   google-cloud-storage
+  net-imap
+  net-pop
+  net-smtp
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.3, >= 7.0.3.1)
