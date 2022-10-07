@@ -85,8 +85,8 @@ paths:
                       $ref: "#/components/schemas/remarks"
                     image:
                       $ref: "#/components/schemas/image"
-                    isPause:
-                      $ref: "#/components/schemas/isPause"
+                    isPaused:
+                      $ref: "#/components/schemas/isPaused"
 
   /subscriptions/{subscriptionId}:
     post:
@@ -126,8 +126,8 @@ paths:
                       $ref: "#/components/schemas/remarks"
                     image:
                       $ref: "#/components/schemas/image"
-                    isPause:
-                      $ref: "#/components/schemas/isPause"
+                    isPaused:
+                      $ref: "#/components/schemas/isPaused"
       responses:
         200:
           description: Successful operation
@@ -161,8 +161,8 @@ paths:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
                             $ref: "#/components/schemas/imageUrl"
-                          isPause:
-                            $ref: "#/components/schemas/isPause"
+                          isPaused:
+                            $ref: "#/components/schemas/isPaused"
 
     delete:
       tags:
@@ -203,8 +203,8 @@ paths:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
                             $ref: "#/components/schemas/imageUrl"
-                          isPause:
-                            $ref: "#/components/schemas/isPause"
+                          isPaused:
+                            $ref: "#/components/schemas/isPaused"
 
   /search:
     get:
@@ -336,8 +336,8 @@ components:
                     $ref: "#/components/schemas/remarks"
                   imageUrl:
                     $ref: "#/components/schemas/imageUrl"
-                  isPause:
-                    $ref: "#/components/schemas/isPause"
+                  isPaused:
+                    $ref: "#/components/schemas/isPaused"
 
     subscription_data:
       description: Get a subscription
@@ -376,8 +376,8 @@ components:
                   $ref: "#/components/schemas/remarks"
                 imageUrl:
                   $ref: "#/components/schemas/imageUrl"
-                isPause:
-                  $ref: "#/components/schemas/isPause"
+                isPaused:
+                  $ref: "#/components/schemas/isPaused"
 
     subscriptionId:
       description: Subscription unique id
@@ -429,7 +429,7 @@ components:
       description: base64 data of image
       type: string
 
-    isPause:
+    isPaused:
       description: Stop payment
       type: boolean
 
