@@ -26,7 +26,7 @@ class SubscriptionsController < ApplicationController
         subscriptions = Subscription.where(user_id: params[:userId])
 
         subscriptions = subscriptions.map { |s| s.format_res }
-        render :json => {data:{subscriptions:subscriptions.format_res}}
+        render :json => { data: { subscriptions: subscriptions } }
     end
 
     def delete
