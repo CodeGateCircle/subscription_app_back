@@ -29,9 +29,9 @@ class SubscriptionsController < ApplicationController
     def delete
         params = delete_params
 
-        subscriptions = Subscription.find(params[:id]).destroy
+        subscription = Subscription.find(params[:id]).destroy
 
-        render :json => {data:{subscriptions:subscriptions}}
+        render :json => {data:{subscription:subscription}}
     end
 
     # strong parameter
