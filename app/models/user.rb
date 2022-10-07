@@ -15,8 +15,8 @@ class User < ApplicationRecord
     def format_res
         res = user_json = self.attributes.symbolize_keys
         res.transform_keys!(user_id: :userId)
-        res.delete(:create_at)
-        res.delete(:update_at)
+        res.delete(:created_at)
+        res.delete(:updated_at)
         return res
     end
 end
