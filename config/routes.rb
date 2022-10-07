@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   post '/account',to:'users#create'
 
+  post '/test', to: 'test#create'
+
 end
