@@ -21,7 +21,7 @@ class SubscriptionsController < ApplicationController
     def show
         params = show_params
 
-        subscriptions = Subscription.where(user_id: params[:user_id])
+        subscriptions = Subscription.where(user_id: params[:userId])
 
         render :json => {data:{subscriptions:subscriptions}}
     end
@@ -60,7 +60,7 @@ class SubscriptionsController < ApplicationController
     end
 
     def show_params
-        params.permit(:user_id)
+        params.permit(:userId)
     end
 
     def delete_params
