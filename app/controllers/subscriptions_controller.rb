@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
             price: params[:subscription][:price],
             first_payment_date: params[:subscription][:firstPaymentDate],
             remarks: params[:subscription][:remarks],
-            is_paused: params[:subscription][:isPause],
+            is_paused: params[:subscription][:isPaused],
             payment_cycle: params[:subscription][:paymentCycle],
             payment_method: params[:subscription][:paymentMethod],
         })
@@ -48,7 +48,7 @@ class SubscriptionsController < ApplicationController
             price: params[:subscription][:price],
             first_payment_date: params[:subscription][:firstPaymentDate],
             remarks: params[:subscription][:remarks],
-            is_paused: params[:subscription][:isPause],
+            is_paused: params[:subscription][:isPaused],
             payment_cycle: params[:subscription][:paymentCycle],
             payment_method: params[:subscription][:paymentMethod],
         }
@@ -62,7 +62,7 @@ class SubscriptionsController < ApplicationController
 
     # strong parameter
     def create_params
-        params.permit(:userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :image, :paymentCycle, :paymentMethod])
+        params.permit(:userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPaused, :image, :paymentCycle, :paymentMethod])
     end
 
     def show_params
@@ -74,6 +74,6 @@ class SubscriptionsController < ApplicationController
     end
 
     def update_params
-        params.permit(:id, :userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :image, :paymentCycle, :paymentMethod])
+        params.permit(:id, :userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPaused, :image, :paymentCycle, :paymentMethod])
     end
 end
