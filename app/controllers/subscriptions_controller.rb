@@ -13,10 +13,12 @@ class SubscriptionsController < ApplicationController
             payment_cycle: params[:subscription][:paymentCycle],
             payment_method: params[:subscription][:paymentMethod],
         })
-        url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
-        subscription.update(
-            image_url: url
-        )
+        if params[:subscription][:image] then
+            url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
+            subscription.update(
+                image_url: url
+            )
+        end
         render :json => { data:subscription.format_res }
     end
 
