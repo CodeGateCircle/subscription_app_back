@@ -38,21 +38,22 @@ class SubscriptionsController < ApplicationController
 
     def update
         params = update_params
-
         subscription = Subscription.find(params[:id])
-
-        subscription.update(
+        update_params = {
             user_id: params[:userId],
             name: params[:subscription][:name],
             price: params[:subscription][:price],
             first_payment_date: params[:subscription][:firstPaymentDate],
             remarks: params[:subscription][:remarks],
             is_paused: params[:subscription][:isPause],
-            image_url: params[:subscription][:imageUrl],
             payment_cycle: params[:subscription][:paymentCycle],
             payment_method: params[:subscription][:paymentMethod],
-        )
-
+        }
+        if params[:subscription][:image] then
+            url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
+            update_params[:image_url] = url
+        end
+        subscription.update(update_params)
         render :json => {data:subscription}
     end
 
@@ -70,6 +71,6 @@ class SubscriptionsController < ApplicationController
     end
 
     def update_params
-        params.permit(:id, :userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :imageUrl, :paymentCycle, :paymentMethod])
+        params.permit(:id, :userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :image, :paymentCycle, :paymentMethod])
     end
 end

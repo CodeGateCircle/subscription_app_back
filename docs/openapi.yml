@@ -83,8 +83,8 @@ paths:
                       $ref: "#/components/schemas/paymentMethod"
                     remarks:
                       $ref: "#/components/schemas/remarks"
-                    imageUrl:
-                      $ref: "#/components/schemas/imageUrl"
+                    image:
+                      $ref: "#/components/schemas/image"
                     isPause:
                       $ref: "#/components/schemas/isPause"
 
@@ -124,8 +124,8 @@ paths:
                       $ref: "#/components/schemas/paymentMethod"
                     remarks:
                       $ref: "#/components/schemas/remarks"
-                    imageUrl:
-                      $ref: "#/components/schemas/imageUrl"
+                    image:
+                      $ref: "#/components/schemas/image"
                     isPause:
                       $ref: "#/components/schemas/isPause"
       responses:
@@ -423,6 +423,10 @@ components:
 
     imageUrl:
       description: URL of icon
+      type: string
+
+    image:
+      description: base64 data of image
       type: string
 
     isPause:
