@@ -34,6 +34,28 @@ class SubscriptionsController < ApplicationController
         render :json => {data:{subscription:subscription}}
     end
 
+    def update
+        params = update_params
+
+        subscription = Subscription.find(params[:id])
+
+        subscription.update(
+            user_id: params[:userId],
+            name: params[:subscription][:name],
+            price: params[:subscription][:price],
+            first_payment_date: params[:subscription][:firstPaymentDate],
+            remarks: params[:subscription][:remarks],
+            is_paused: params[:subscription][:isPause],
+            image_url: params[:subscription][:imageUrl],
+            payment_cycle: params[:subscription][:paymentCycle],
+            payment_method: params[:subscription][:paymentMethod],
+        )
+
+        # subscription = Subscription.find(params[:id])
+
+        render :json => {data:subscription}
+    end
+
     # strong parameter
     def create_params
         params.permit(:userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :imageUrl, :paymentCycle, :paymentMethod])
@@ -45,5 +67,9 @@ class SubscriptionsController < ApplicationController
 
     def delete_params
         params.permit(:id)
+    end
+
+    def update_params
+        params.permit(:id, :userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPause, :imageUrl, :paymentCycle, :paymentMethod])
     end
 end

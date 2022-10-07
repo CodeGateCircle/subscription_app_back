@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/subscriptions', to: 'subscriptions#create'
   get '/subscriptions', to: 'subscriptions#show'
   delete '/subscriptions/:id', to: 'subscriptions#delete'
+  post '/subscriptions/:id', to: 'subscriptions#update'
 
   post '/account', to: 'users#create'
   get '/account/:id', to: 'users#show'
