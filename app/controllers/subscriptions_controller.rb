@@ -51,8 +51,6 @@ class SubscriptionsController < ApplicationController
             payment_method: params[:subscription][:paymentMethod],
         )
 
-        # subscription = Subscription.find(params[:id])
-
         render :json => {data:subscription}
     end
 
