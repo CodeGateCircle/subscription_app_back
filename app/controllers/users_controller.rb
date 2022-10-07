@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     def create
         params = create_params
 
-        user = User.create({
+        user = User.create!({
             user_id: params[:userId],
             currency: params[:currency],
             language: params[:language],
