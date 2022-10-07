@@ -23,18 +23,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_173330) do
     t.string "image_url"
     t.integer "payment_cycle", limit: 2, null: false
     t.integer "payment_method", limit: 2, null: false
-    t.bigint "user_id", null: false
+    t.string "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", primary_key: "user_id", id: :string, force: :cascade do |t|
     t.integer "currency", limit: 2, null: false
     t.integer "language", limit: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "subscriptions", "users"
+  add_foreign_key "subscriptions", "users", primary_key: "user_id"
 end

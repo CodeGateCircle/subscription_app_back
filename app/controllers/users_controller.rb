@@ -4,6 +4,7 @@ class UsersController < ApplicationController
         params = create_params
 
         user = User.create({
+            user_id: params[:user_id],
             currency: params[:currency],
             language: params[:language],
         })
@@ -20,18 +21,18 @@ class UsersController < ApplicationController
     def update
         params = update_params
 
-        user = User.find(params[:id]).update(currency: params[:currency], language: params[:language])
+        user = User.find(params[:user_id]).update(currency: params[:currency], language: params[:language])
 
         render :json => {data:user}
     end
 
     # strong parameter
     def create_params
-        params.permit(:language, :currency)
+        params.permit(:user_id, :language, :currency)
     end
 
     def update_params
-        params.permit(:id, :language, :currency)
+        params.permit(:user_id, :language, :currency)
     end
 
 end
