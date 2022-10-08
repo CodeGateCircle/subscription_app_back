@@ -14,9 +14,23 @@ RSpec.describe "Users", type: :request do
         get "/account/#{@user.id}"
         expect(response).to have_http_status :ok
         res = JSON.parse(response.body)
-        expect(res['data']['user_id']).to eq(@user[:id])
+        expect(res['data']['userId']).to eq(@user[:user_id])
         expect(res['data']['currency']).to eq(@user[:currency])
         expect(res['data']['language']).to eq(@user[:language])
+      end
+    end
+  end
+
+  describe "POST /account" do
+    context "成功" do
+      it "受け取ったResponseからユーザーを作成することができる" do
+        body = {userId: "12332", currency: "JPY", language: "Japanese"}
+        post "/account", params: body
+        expect(response).to have_http_status :ok
+        res = JSON.parse(response.body)
+        expect(res['data']['userId']).to eq(body[:userId])
+        expect(res['data']['currency']).to eq(body[:currency])
+        expect(res['data']['language']).to eq(body[:language])
       end
     end
   end

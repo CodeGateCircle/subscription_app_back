@@ -19,7 +19,7 @@ class SubscriptionsController < ApplicationController
                 image_url: url
             )
         end
-        render :json => { data:subscription.format_res }
+        render :json => { data: { subscription: subscription.format_res } }
     end
 
     def show
