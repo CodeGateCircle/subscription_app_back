@@ -26,11 +26,24 @@ class SubscriptionsController < ApplicationController
       payment_cycle: params[:subscription][:paymentCycle],
       payment_method: params[:subscription][:paymentMethod],
     })
-    if params[:subscription][:image] then
-      url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
-      subscription.update(
-        image_url: url
-      )
+    begin
+      if params[:subscription][:image] then
+        url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
+        subscription.update(
+          image_url: url
+        )
+      end
+    rescue
+      render :json => {
+        data: {
+          subscription: subscription.format_res
+        },
+        errors: {
+          field: "image",
+          message: "画像の保存に失敗しました。"
+        }
+      }
+      return
     end
     render :json => { data: { subscription: subscription.format_res } }
 
@@ -57,24 +70,20 @@ class SubscriptionsController < ApplicationController
     params = update_params
 
     if !User.exists?(user_id: params[:userId])
-      field = "user_id"
-      message = "ユーザーIDが登録されていません。"
       render :json => {
         errors: {
-          field: field,
-          message: message
+          field: "user_id",
+          message: "ユーザーIDが登録されていません。"
         }
       }
       return
     end
 
     if !Subscription.where(user_id: params[:userId]).exists?(id: params[:id])
-      field = "subscription_id"
-      message = "サブスクIDが違います"
       render :json => {
         errors: {
-          field: field,
-          message: message
+          field: "subscription_id",
+          message: "サブスクIDが違います"
         }
       }
       return
@@ -91,11 +100,24 @@ class SubscriptionsController < ApplicationController
       payment_cycle: params[:subscription][:paymentCycle],
       payment_method: params[:subscription][:paymentMethod],
     }
-    if params[:subscription][:image] then
-      url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
-      update_params[:image_url] = url
+    begin
+      if params[:subscription][:image] then
+        url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
+        update_params[:image_url] = url
+      end
+      subscription.update!(update_params)
+    rescue
+      render :json => {
+        data: {
+          subscription: subscription.format_res
+        },
+        errors: {
+          field: "image",
+          message: "画像の保存に失敗しました。"
+        }
+      }
+      return
     end
-    subscription.update!(update_params)
     render :json => { data: subscription.format_res }
   end
 
