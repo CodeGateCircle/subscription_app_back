@@ -61,22 +61,19 @@ class SubscriptionsController < ApplicationController
   end
 
   def search
-    subscriptions1 = Subscription.where(user_id: "tester").select(:name, :price, :payment_cycle, :image_url)
-    # subscriptions2 = Subscription.where(user_id: "222").select(:name, :price, :payment_cycle, :image_url)
 
-    subscriptions1 = subscriptions1.map { |s| s.format_res_search }
-    # subscriptions2 = subscriptions2.map { |s| s.format_res_search }
+    name = params[:name]
 
-    # if params.nil? then
-    #   render :json => { data: { result: subscriptions1 } }
-    #   puts "one"
-    # else
-    #   render :json => { data: { result: subscriptions2 } }
-    #   puts "two"
-    # end
+    if name
+      subscriptions = Subscription.where(name: name).select(:name, :price, :payment_cycle, :image_url)
+    else
+      subscriptions = Subscription.where(user_id: "tester").select(:name, :price, :payment_cycle, :image_url)
+    end
 
-    render :json => { data: { result: subscriptions1 } }
-    # render :json => { data: { result: subscriptions2 } }
+    subscriptions = subscriptions.map { |s| s.format_res_search }
+
+    render :json => { data: { result: subscriptions } }
+
   end
 
   # strong parameter
