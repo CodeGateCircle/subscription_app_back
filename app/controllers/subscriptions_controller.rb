@@ -3,6 +3,19 @@ class SubscriptionsController < ApplicationController
 
   def create
     params = create_params
+
+    if !User.exists?(user_id: params[:userId])
+      field = "user_id"
+      message = "ユーザーIDが登録されていません。"
+      render :json => {
+        errors: {
+          field: field,
+          message: message
+        }
+      }
+      return
+    end
+
     subscription = Subscription.create!({
       user_id: params[:userId],
       name: params[:subscription][:name],
@@ -16,10 +29,11 @@ class SubscriptionsController < ApplicationController
     if params[:subscription][:image] then
       url = Firestore.save_image_and_get_url(params[:subscription][:image], subscription.id.to_s)
       subscription.update(
-          image_url: url
+        image_url: url
       )
     end
     render :json => { data: { subscription: subscription.format_res } }
+
   end
 
   def show
@@ -41,6 +55,31 @@ class SubscriptionsController < ApplicationController
 
   def update
     params = update_params
+
+    if !User.exists?(user_id: params[:userId])
+      field = "user_id"
+      message = "ユーザーIDが登録されていません。"
+      render :json => {
+        errors: {
+          field: field,
+          message: message
+        }
+      }
+      return
+    end
+
+    if !Subscription.where(user_id: params[:userId]).exists?(id: params[:id])
+      field = "subscription_id"
+      message = "サブスクIDが違います"
+      render :json => {
+        errors: {
+          field: field,
+          message: message
+        }
+      }
+      return
+    end
+
     subscription = Subscription.find(params[:id])
     update_params = {
       user_id: params[:userId],
