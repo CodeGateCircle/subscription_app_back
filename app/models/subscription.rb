@@ -24,4 +24,15 @@ class Subscription < ApplicationRecord
     res.delete(:updated_at)
     return res
   end
+
+  def format_res_search
+    res = self.attributes.symbolize_keys
+    res.transform_keys!(image_url: :imageUrl)
+    res.transform_keys!(payment_cycle: :paymentCycle)
+
+    res.delete(:id)
+    res.delete(:created_at)
+    res.delete(:updated_at)
+    return res
+  end
 end
