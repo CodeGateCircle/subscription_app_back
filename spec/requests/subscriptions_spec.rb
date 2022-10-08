@@ -31,20 +31,52 @@ RSpec.describe "Subscriptions", type: :request do
   describe "POST /subscription" do
     context "成功" do
       it "受け取ったResponseからサブスクを作成することができる" do
-        body = {  userId: @subscription.user_id,
-                  subscription: {
-                    name: "Amazon prime",
-                    price: 1000,
-                    paymentCycle: "oneMonth",
-                    firstPaymentDate: "2022-10-15",
-                    paymentMethod: "cash",
-                    remarks: "string",
-                    isPaused: false
-                  }
-                }
+        body = {
+          userId: @subscription.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            remarks: "string",
+            isPaused: false
+          }
+        }
         post "/subscriptions", params: body
         expect(response).to have_http_status :ok
         res = JSON.parse(response.body)
+        expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
+        expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
+        expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
+        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
+        expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
+        expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
+        expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
+      end
+    end
+  end
+
+  describe "POST /subscription/:id" do
+    context "成功" do
+      it "受け取ったResponseからサブスクを更新することができる" do
+        body = {
+          userId: @subscription.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            remarks: "string",
+            image: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions/#{@subscription.id}", params: body
+        expect(response).to have_http_status :ok
+        res = JSON.parse(response.body)
+        puts res
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
