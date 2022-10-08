@@ -5,12 +5,10 @@ class SubscriptionsController < ApplicationController
     params = create_params
 
     if !User.exists?(user_id: params[:userId])
-      field = "user_id"
-      message = "ユーザーIDが登録されていません。"
-      render :json => {
+      render status: 404, :json => {
         errors: {
-          field: field,
-          message: message
+          field: "user_id",
+          message: "ユーザーIDが登録されていません。"
         }
       }
       return

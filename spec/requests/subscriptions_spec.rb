@@ -55,6 +55,28 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
       end
     end
+
+    context "失敗" do
+      it "ユーザーIDが登録されていないエラーを吐く" do
+        body = {
+          userId: "unkown_user",
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions", params: body
+        expect(response).to have_http_status(404)
+        res = JSON.parse(response.body)
+        expect(res['errors']['field']).to eq("user_id")
+        expect(res['errors']['message']).to eq("ユーザーIDが登録されていません。")
+      end
+    end
   end
 
   describe "POST /subscription/:id" do
@@ -69,7 +91,6 @@ RSpec.describe "Subscriptions", type: :request do
             firstPaymentDate: "2022-10-15",
             paymentMethod: "cash",
             remarks: "string",
-            image: "string",
             isPaused: false
           }
         }
