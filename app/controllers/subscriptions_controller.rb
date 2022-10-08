@@ -62,10 +62,11 @@ class SubscriptionsController < ApplicationController
 
   def search
 
-    name = params[:name]
+    subscription_table = Subscription.arel_table
 
-    if name
-      subscriptions = Subscription.where(name: name).select(:name, :price, :payment_cycle, :image_url)
+    if params[:name]
+      para = '%' + params[:name] + '%'
+      subscriptions = Subscription.where(subscription_table[:name].matches(para)).select(:name, :price, :payment_cycle, :image_url)
     else
       subscriptions = Subscription.where(user_id: "tester").select(:name, :price, :payment_cycle, :image_url)
     end
