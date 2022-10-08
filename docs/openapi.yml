@@ -85,6 +85,8 @@ paths:
                       $ref: "#/components/schemas/remarks"
                     image:
                       $ref: "#/components/schemas/image"
+                    imageUrl:
+                      $ref: "#/components/schemas/imageUrl"
                     isPaused:
                       $ref: "#/components/schemas/isPaused"
 
