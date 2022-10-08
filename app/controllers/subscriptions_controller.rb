@@ -16,6 +16,10 @@ class SubscriptionsController < ApplicationController
       return
     end
 
+    if URI.regexp.match(params[:subscription][:imageUrl]).nil?
+      params[:subscription][:imageUrl] = nil
+    end
+
     subscription = Subscription.create!({
       user_id: params[:userId],
       name: params[:subscription][:name],
@@ -25,6 +29,7 @@ class SubscriptionsController < ApplicationController
       is_paused: params[:subscription][:isPaused],
       payment_cycle: params[:subscription][:paymentCycle],
       payment_method: params[:subscription][:paymentMethod],
+      image_url: params[:subscription][:imageUrl]
     })
     begin
       if params[:subscription][:image] then
@@ -140,7 +145,7 @@ class SubscriptionsController < ApplicationController
 
   # strong parameter
   def create_params
-    params.permit(:userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPaused, :image, :paymentCycle, :paymentMethod])
+    params.permit(:userId, subscription: [:name, :price, :firstPaymentDate, :remarks, :isPaused, :image, :paymentCycle, :paymentMethod, :imageUrl])
   end
 
   def show_params
