@@ -24,10 +24,7 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscriptions'][0]['isPaused']).to eq(@subscription[:is_paused])
         expect(res['data']['subscriptions'][1]['name']).to eq(@subscription1[:name])
         expect(res['data']['subscriptions'][2]['name']).to eq(@subscription2[:name])
-
-        # puts @subscription.attributes.symbolize_keys
       end
-
     end
   end
 
@@ -42,14 +39,12 @@ RSpec.describe "Subscriptions", type: :request do
                     firstPaymentDate: "2022-10-15",
                     paymentMethod: "cash",
                     remarks: "string",
-                    # image: "string",
                     isPaused: false
                   }
                 }
         post "/subscriptions", params: body
         expect(response).to have_http_status :ok
         res = JSON.parse(response.body)
-        puts res
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
@@ -57,8 +52,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
-
-
       end
     end
   end
