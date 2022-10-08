@@ -28,7 +28,7 @@ class Firestore
   end
 
   def self.save_image_and_get_url(base64, subscription_id)
-    path = add_image_from_base64(base64, '12')
+    path = add_image_from_base64(base64, subscription_id)
     return get_image_url(path)
   end
 
