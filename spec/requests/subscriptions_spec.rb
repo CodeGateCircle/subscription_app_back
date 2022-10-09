@@ -6,6 +6,7 @@ RSpec.describe "Subscriptions", type: :request do
     @subscription = FactoryBot.create(:subscription)
     @subscription1 = FactoryBot.create(:subscription, user_id: @subscription.user_id)
     @subscription2 = FactoryBot.create(:subscription, user_id: @subscription.user_id)
+    @subscription_different_user = FactoryBot.create(:subscription)
   end
 
   describe "GET /subscriptions" do
@@ -54,6 +55,84 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
       end
+
+      it "imageUrlが正しくない時imageUrlをnullにする" do
+        body = {
+          userId: @subscription.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            imageUrl: "unknown_URL",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions", params: body
+        expect(response).to have_http_status(200)
+        res = JSON.parse(response.body)
+        expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
+        expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
+        expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
+        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
+        expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
+        expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
+        expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
+        expect(res['data']['subscription']['imageUrl']).to eq(nil)
+      end
+    end
+
+    context "失敗" do
+      it "ユーザーIDが登録されていない時エラーを吐く" do
+        body = {
+          userId: "unknown_user",
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions", params: body
+        expect(response).to have_http_status(404)
+        res = JSON.parse(response.body)
+        expect(res['errors']['field']).to eq("user_id")
+        expect(res['errors']['message']).to eq("ユーザーIDが登録されていません。")
+      end
+
+      it "imageのフォーマットが正しくない時にエラーを吐く" do
+        body = {
+          userId: @subscription.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            image: "unknown_image",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions", params: body
+        expect(response).to have_http_status(200)
+        res = JSON.parse(response.body)
+        expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
+        expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
+        expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
+        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
+        expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
+        expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
+        expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
+        expect(res['data']['subscription']['imageUrl']).to eq(nil)
+        expect(res['errors']['field']).to eq("image")
+        expect(res['errors']['message']).to eq("画像の保存に失敗しました。")
+      end
     end
   end
 
@@ -69,7 +148,6 @@ RSpec.describe "Subscriptions", type: :request do
             firstPaymentDate: "2022-10-15",
             paymentMethod: "cash",
             remarks: "string",
-            image: "string",
             isPaused: false
           }
         }
@@ -84,6 +162,77 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
+      end
+    end
+
+    context "失敗" do
+      it "ユーザーIDが登録されていない時エラーを吐く" do
+        body = {
+          userId: "unknown_user",
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions/#{@subscription.id}", params: body
+        expect(response).to have_http_status(404)
+        res = JSON.parse(response.body)
+        expect(res['errors']['field']).to eq("user_id")
+        expect(res['errors']['message']).to eq("ユーザーIDが登録されていません。")
+      end
+
+      it "ユーザーに対してサブスクIDが登録されていない時エラーを吐く" do
+        body = {
+          userId: @subscription_different_user.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions/#{@subscription.id}", params: body
+        expect(response).to have_http_status(404)
+        res = JSON.parse(response.body)
+        expect(res['errors']['field']).to eq("subscription_id")
+        expect(res['errors']['message']).to eq("サブスクIDが違います。")
+      end
+
+      it "imageのフォーマットが正しくない時にエラーを吐く" do
+        body = {
+          userId: @subscription.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            image: "unknown_image",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions/#{@subscription.id}", params: body
+        expect(response).to have_http_status(200)
+        res = JSON.parse(response.body)
+        expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
+        expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
+        expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
+        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
+        expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
+        expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
+        expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
+        expect(res['data']['subscription']['imageUrl']).to eq(@subscription.image_url)
+        expect(res['errors']['field']).to eq("image")
+        expect(res['errors']['message']).to eq("画像の保存に失敗しました。")
       end
     end
   end
