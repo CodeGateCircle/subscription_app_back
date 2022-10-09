@@ -3,7 +3,7 @@ class Subscription < ApplicationRecord
 
     # validates
     validates :name, presence: true
-    validates :price, presence: true
+    validates :price, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to:9999999}
     validates :is_paused, inclusion: { in: [true, false] }
     validates :remarks, length: { maximum: 1000 }
 
