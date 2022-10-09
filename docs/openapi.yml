@@ -216,7 +216,7 @@ paths:
       summary: Search subscription
       description: Search subscription
       parameters:
-        - name: body
+        - name: name
           in: query
           description: 'search parameter'
           style: form
