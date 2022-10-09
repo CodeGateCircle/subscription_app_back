@@ -37,7 +37,7 @@ class SubscriptionsController < ApplicationController
         )
       end
     rescue
-      render status: 404, :json => {
+      render status: 200, :json => {
         data: {
           subscription: subscription.format_res
         },
@@ -58,7 +58,7 @@ class SubscriptionsController < ApplicationController
     subscriptions = Subscription.where(user_id: params[:userId])
 
     subscriptions = subscriptions.map { |s| s.format_res }
-    render :json => { data: { subscriptions: subscriptions } }
+    render status:200, :json => { data: { subscriptions: subscriptions } }
   end
 
   def delete
@@ -66,14 +66,14 @@ class SubscriptionsController < ApplicationController
 
     subscription = Subscription.find(params[:id]).destroy
 
-    render :json => {data: { subscription: subscription.format_res}}
+    render status: 200, :json => {data: { subscription: subscription.format_res}}
   end
 
   def update
     params = update_params
 
     if !User.exists?(user_id: params[:userId])
-      render :json => {
+      render status: 404, :json => {
         errors: {
           field: "user_id",
           message: "ユーザーIDが登録されていません。"
@@ -83,10 +83,10 @@ class SubscriptionsController < ApplicationController
     end
 
     if !Subscription.where(user_id: params[:userId]).exists?(id: params[:id])
-      render :json => {
+      render status: 404, :json => {
         errors: {
           field: "subscription_id",
-          message: "サブスクIDが違います"
+          message: "サブスクIDが違います。"
         }
       }
       return
@@ -111,7 +111,7 @@ class SubscriptionsController < ApplicationController
       end
       subscription.update!(update_params)
     rescue
-      render :json => {
+      render status: 200, :json => {
         data: {
           subscription: subscription.format_res
         },
@@ -122,7 +122,7 @@ class SubscriptionsController < ApplicationController
       }
       return
     end
-    render :json => { data: { subscription: subscription.format_res } }
+    render status: 200, :json => { data: { subscription: subscription.format_res } }
   end
 
   def search
@@ -138,7 +138,7 @@ class SubscriptionsController < ApplicationController
 
     subscriptions = subscriptions.map { |s| s.format_res_search }
 
-    render :json => { data: { result: subscriptions } }
+    render status: 200, :json => { data: { result: subscriptions } }
 
   end
 
