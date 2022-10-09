@@ -37,7 +37,7 @@ class SubscriptionsController < ApplicationController
         )
       end
     rescue
-      render :json => {
+      render status: 404, :json => {
         data: {
           subscription: subscription.format_res
         },
@@ -48,7 +48,7 @@ class SubscriptionsController < ApplicationController
       }
       return
     end
-    render :json => { data: { subscription: subscription.format_res } }
+    render status: 200, :json => { data: { subscription: subscription.format_res } }
 
   end
 

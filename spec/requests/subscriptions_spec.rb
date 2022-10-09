@@ -54,12 +54,32 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
       end
+
+      it "imageUrlが正しくない時imageUrlをnullにする" do
+        body = {
+          userId: @subscription.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            imageUrl: "unknown_URL",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions", params: body
+        expect(response).to have_http_status(200)
+        res = JSON.parse(response.body)
+        expect(res['data']['subscription']['imageUrl']).to eq(nil)
+      end
     end
 
     context "失敗" do
-      it "ユーザーIDが登録されていないエラーを吐く" do
+      it "ユーザーIDが登録されていない時エラーを吐く" do
         body = {
-          userId: "unkown_user",
+          userId: "unknown_user",
           subscription: {
             name: "Amazon prime",
             price: 1000,
@@ -75,6 +95,28 @@ RSpec.describe "Subscriptions", type: :request do
         res = JSON.parse(response.body)
         expect(res['errors']['field']).to eq("user_id")
         expect(res['errors']['message']).to eq("ユーザーIDが登録されていません。")
+      end
+
+      it "imageのフォーマットが正しくない時にエラーを吐く" do
+        body = {
+          userId: @subscription.user_id,
+          subscription: {
+            name: "Amazon prime",
+            price: 1000,
+            paymentCycle: "oneMonth",
+            firstPaymentDate: "2022-10-15",
+            paymentMethod: "cash",
+            image: "unknown_image",
+            remarks: "string",
+            isPaused: false
+          }
+        }
+        post "/subscriptions", params: body
+        expect(response).to have_http_status(404)
+        res = JSON.parse(response.body)
+        expect(res['data']['subscription']['imageUrl']).to eq(nil)
+        expect(res['errors']['field']).to eq("image")
+        expect(res['errors']['message']).to eq("画像の保存に失敗しました。")
       end
     end
   end
