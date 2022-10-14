@@ -2,7 +2,7 @@ class CreateSubscriptions < ActiveRecord::Migration[7.0]
   def change
     create_table :subscriptions do |t|
       t.string  :name,               null: false
-      t.integer :price,              null: false, default: 0
+      t.decimal :price,              null: false, precision: 8, scale: 3, default: 0
       t.date    :first_payment_date, null: true
       t.text    :remarks,            null: true
       t.boolean :is_paused,          null: false, default: false

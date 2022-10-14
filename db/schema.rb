@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_06_173330) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "price", default: 0, null: false
+    t.decimal "price", precision: 8, scale: 3, default: "0.0", null: false
     t.date "first_payment_date"
     t.text "remarks"
     t.boolean "is_paused", default: false, null: false
