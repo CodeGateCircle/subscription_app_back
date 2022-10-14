@@ -55,7 +55,7 @@ class SubscriptionsController < ApplicationController
   def show
     params = show_params
 
-    subscriptions = Subscription.where(user_id: params[:userId])
+    subscriptions = Subscription.where(user_id: params[:userId]).limit(30)
 
     subscriptions = subscriptions.map { |s| s.format_res }
     render status:200, :json => { data: { subscriptions: subscriptions } }
