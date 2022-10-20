@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_06_173330) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_20_083603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "subscriptions", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "price", default: 0, null: false
+    t.decimal "price", precision: 3, scale: 8, default: "0.0", null: false
     t.date "first_payment_date"
     t.text "remarks"
     t.boolean "is_paused", default: false, null: false
