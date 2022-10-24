@@ -1,6 +1,6 @@
 class ChangeDatatypePriceOfSubscriptions < ActiveRecord::Migration[7.0]
   def up
-    change_column :subscriptions, :price, :decimal, precision: 3, scale: 8, default: 0
+    change_column :subscriptions, :price, :decimal, precision: 8, scale: 3, default: 0
   end
 
   # 変更前の内容
