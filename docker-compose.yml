@@ -4,7 +4,7 @@ services:
     # コンテナ名の指定
     container_name: subscription_db
     # イメージの指定
-    image: postgres
+    image: postgres:14
     # データの永続化
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
