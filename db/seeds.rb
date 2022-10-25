@@ -9,7 +9,6 @@ Subscription.create(    name: "Amazon prime",
                         remarks: "学割",
                         is_paused: false,
                         payment_cycle: 10,
-                        payment_method: 0,
                         user_id: "tester"
                     )
 
@@ -19,7 +18,6 @@ Subscription.create(    name: "Youtube Premium",
                         remarks: "お試し終了",
                         is_paused: false,
                         payment_cycle: 10,
-                        payment_method: 0,
                         user_id: "tester"
                     )
 
@@ -29,6 +27,5 @@ Subscription.create(    name: "Apple Music",
                         remarks: "学割",
                         is_paused: false,
                         payment_cycle: 10,
-                        payment_method: 0,
                         user_id: "tester"
                     )

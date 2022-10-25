@@ -69,7 +69,6 @@ paths:
                     - price
                     - paymentCycle
                     - firstPaymentDate
-                    - paymentMethod
                   properties:
                     name:
                       $ref: "#/components/schemas/name"
@@ -79,8 +78,6 @@ paths:
                       $ref: "#/components/schemas/paymentCycle"
                     firstPaymentDate:
                       $ref: "#/components/schemas/firstPaymentDate"
-                    paymentMethod:
-                      $ref: "#/components/schemas/paymentMethod"
                     remarks:
                       $ref: "#/components/schemas/remarks"
                     image:
@@ -112,7 +109,6 @@ paths:
                     - price
                     - paymentCycle
                     - firstPaymentDate
-                    - paymentMethod
                   properties:
                     name:
                       $ref: "#/components/schemas/name"
@@ -122,8 +118,6 @@ paths:
                       $ref: "#/components/schemas/paymentCycle"
                     firstPaymentDate:
                       $ref: "#/components/schemas/firstPaymentDate"
-                    paymentMethod:
-                      $ref: "#/components/schemas/paymentMethod"
                     remarks:
                       $ref: "#/components/schemas/remarks"
                     image:
@@ -147,7 +141,6 @@ paths:
                           - price
                           - paymentCycle
                           - firstPaymentDate
-                          - paymentMethod
                         properties:
                           name:
                             $ref: "#/components/schemas/name"
@@ -157,8 +150,6 @@ paths:
                             $ref: "#/components/schemas/paymentCycle"
                           firstPaymentDate:
                             $ref: "#/components/schemas/firstPaymentDate"
-                          paymentMethod:
-                            $ref: "#/components/schemas/paymentMethod"
                           remarks:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
@@ -189,7 +180,6 @@ paths:
                           - price
                           - paymentCycle
                           - firstPaymentDate
-                          - paymentMethod
                         properties:
                           name:
                             $ref: "#/components/schemas/name"
@@ -199,8 +189,6 @@ paths:
                             $ref: "#/components/schemas/paymentCycle"
                           firstPaymentDate:
                             $ref: "#/components/schemas/firstPaymentDate"
-                          paymentMethod:
-                            $ref: "#/components/schemas/paymentMethod"
                           remarks:
                             $ref: "#/components/schemas/remarks"
                           imageUrl:
@@ -320,7 +308,6 @@ components:
                   - price
                   - paymentCycle
                   - firstPaymentDate
-                  - paymentMethod
                 properties:
                   subscriptionId:
                     $ref: "#/components/schemas/subscriptionId"
@@ -332,8 +319,6 @@ components:
                     $ref: "#/components/schemas/paymentCycle"
                   firstPaymentDate:
                     $ref: "#/components/schemas/firstPaymentDate"
-                  paymentMethod:
-                    $ref: "#/components/schemas/paymentMethod"
                   remarks:
                     $ref: "#/components/schemas/remarks"
                   imageUrl:
@@ -360,7 +345,6 @@ components:
                 - price
                 - paymentCycle
                 - firstPaymentDate
-                - paymentMethod
               properties:
                 subscriptionId:
                   $ref: "#/components/schemas/subscriptionId"
@@ -372,8 +356,6 @@ components:
                   $ref: "#/components/schemas/paymentCycle"
                 firstPaymentDate:
                   $ref: "#/components/schemas/firstPaymentDate"
-                paymentMethod:
-                  $ref: "#/components/schemas/paymentMethod"
                 remarks:
                   $ref: "#/components/schemas/remarks"
                 imageUrl:
@@ -411,13 +393,6 @@ components:
       description: First payment date
       type: string
       format: date
-
-    paymentMethod:
-      description: Payment method
-      type: string
-      enum:
-        - cash
-        - card
 
     remarks:
       description: Remarks
