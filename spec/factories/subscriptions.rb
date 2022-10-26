@@ -7,7 +7,6 @@ FactoryBot.define do
     is_paused { Faker::Boolean.boolean }
     image_url { Faker::Lorem.characters(number: 100) }
     payment_cycle { 'oneMonth' }
-    payment_method { 'card' }
     association :user
   end
 end
