@@ -19,7 +19,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscriptions'][0]['price']).to eq(@subscription[:price])
         expect(res['data']['subscriptions'][0]['paymentCycle']).to eq(@subscription[:payment_cycle])
         expect(res['data']['subscriptions'][0]['firstPaymentDate']).to eq(@subscription[:first_payment_date].strftime("%Y-%m-%d"))
-        expect(res['data']['subscriptions'][0]['paymentMethod']).to eq(@subscription[:payment_method])
         expect(res['data']['subscriptions'][0]['remarks']).to eq(@subscription[:remarks])
         expect(res['data']['subscriptions'][0]['imageUrl']).to eq(@subscription[:image_url])
         expect(res['data']['subscriptions'][0]['isPaused']).to eq(@subscription[:is_paused])
@@ -39,7 +38,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             remarks: "string",
             isPaused: false
           }
@@ -50,7 +48,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
-        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
         expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
@@ -64,7 +61,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             imageUrl: "unknown_URL",
             remarks: "string",
             isPaused: false
@@ -76,7 +72,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
-        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
         expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
@@ -93,7 +88,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             remarks: "string",
             isPaused: false
           }
@@ -113,7 +107,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             image: "unknown_image",
             remarks: "string",
             isPaused: false
@@ -125,7 +118,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
-        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
         expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
@@ -146,7 +138,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             remarks: "string",
             isPaused: false
           }
@@ -158,7 +149,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
-        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
         expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
@@ -174,7 +164,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             remarks: "string",
             isPaused: false
           }
@@ -194,7 +183,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             remarks: "string",
             isPaused: false
           }
@@ -214,7 +202,6 @@ RSpec.describe "Subscriptions", type: :request do
             price: 1000,
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
-            paymentMethod: "cash",
             image: "unknown_image",
             remarks: "string",
             isPaused: false
@@ -226,7 +213,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
-        expect(res['data']['subscription']['paymentMethod']).to eq(body[:subscription][:paymentMethod])
         expect(res['data']['subscription']['firstPaymentDate']).to eq(body[:subscription][:firstPaymentDate])
         expect(res['data']['subscription']['remarks']).to eq(body[:subscription][:remarks])
         expect(res['data']['subscription']['isPaused']).to eq(body[:subscription][:isPaused])
