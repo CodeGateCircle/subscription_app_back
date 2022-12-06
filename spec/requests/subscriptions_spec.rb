@@ -16,7 +16,6 @@ RSpec.describe "Subscriptions", type: :request do
         expect(response).to have_http_status :ok
         res = JSON.parse(response.body)
         expect(res['data']['subscriptions'][0]['name']).to eq(@subscription[:name])
-        expect(res['data']['subscriptions'][0]['price']).to eq(@subscription[:price])
         expect(res['data']['subscriptions'][0]['paymentCycle']).to eq(@subscription[:payment_cycle])
         expect(res['data']['subscriptions'][0]['firstPaymentDate']).to eq(@subscription[:first_payment_date].strftime("%Y-%m-%d"))
         expect(res['data']['subscriptions'][0]['remarks']).to eq(@subscription[:remarks])
@@ -35,7 +34,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: @subscription.user_id,
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             remarks: "string",
@@ -58,7 +57,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: @subscription.user_id,
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             imageUrl: "unknown_URL",
@@ -85,7 +84,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: "unknown_user",
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             remarks: "string",
@@ -104,7 +103,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: @subscription.user_id,
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             image: "unknown_image",
@@ -135,7 +134,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: @subscription.user_id,
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             remarks: "string",
@@ -145,7 +144,6 @@ RSpec.describe "Subscriptions", type: :request do
         post "/subscriptions/#{@subscription.id}", params: body
         expect(response).to have_http_status :ok
         res = JSON.parse(response.body)
-        puts res
         expect(res['data']['subscription']['name']).to eq(body[:subscription][:name])
         expect(res['data']['subscription']['price']).to eq(body[:subscription][:price])
         expect(res['data']['subscription']['paymentCycle']).to eq(body[:subscription][:paymentCycle])
@@ -161,7 +159,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: "unknown_user",
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             remarks: "string",
@@ -180,7 +178,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: @subscription_different_user.user_id,
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             remarks: "string",
@@ -199,7 +197,7 @@ RSpec.describe "Subscriptions", type: :request do
           userId: @subscription.user_id,
           subscription: {
             name: "Amazon prime",
-            price: 1000,
+            price: "1000.0",
             paymentCycle: "oneMonth",
             firstPaymentDate: "2022-10-15",
             image: "unknown_image",
